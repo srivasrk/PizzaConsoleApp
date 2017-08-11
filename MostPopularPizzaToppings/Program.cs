@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 namespace MostPopularPizzaToppings
 {
 
-    class Toppings
+    class PizzaToppings
     {
-        //There could be one or more toppings
+        //There could be one or more toppings on a pizza
         public string[] toppings { get; set; }
     }
 
@@ -25,13 +25,13 @@ namespace MostPopularPizzaToppings
             var json = new WebClient().DownloadString("http://files.olo.com/pizzas.json");
             
             //Deserialize
-            Toppings[] products = JsonConvert.DeserializeObject<Toppings[]>(json);
+            PizzaToppings[] products = JsonConvert.DeserializeObject<PizzaToppings[]>(json);
 
             //This will store the count of each topping
             Dictionary<string, int> ToppingsFrequencyMap= new Dictionary<string, int>();            
 
             //Temporary vars
-            Toppings ListOfCurrentToppings;
+            PizzaToppings ListOfCurrentToppings;
             string CurrentTopping;
             //var result = products.SelectMany(i => i.toppings).ToArray();
 
@@ -51,9 +51,9 @@ namespace MostPopularPizzaToppings
                     {
                         ToppingsFrequencyMap.Add(CurrentTopping, 1);
                     }
-                }
-                
-            }           
+                }                
+
+            }
 
             //Get the top 20 most frequent items from the dictionary
             var result = ToppingsFrequencyMap.OrderByDescending(item => item.Value).Take(20);
