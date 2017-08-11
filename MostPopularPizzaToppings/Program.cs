@@ -23,7 +23,8 @@ namespace MostPopularPizzaToppings
         {
             //Get JSON from url
             var json = new WebClient().DownloadString("http://files.olo.com/pizzas.json");
-            
+            int count = 20;
+
             //Deserialize
             PizzaToppings[] products = JsonConvert.DeserializeObject<PizzaToppings[]>(json);
 
@@ -56,8 +57,9 @@ namespace MostPopularPizzaToppings
             }
 
             //Get the top 20 most frequent items from the dictionary
-            var result = ToppingsFrequencyMap.OrderByDescending(item => item.Value).Take(20);
+            var result = ToppingsFrequencyMap.OrderByDescending(item => item.Value).Take(count);
             int rank = 1;
+            Console.WriteLine("Following is the list of top {0} most popular pizza toppings:", count);
 
             //Display the items with rank and frequency
             foreach (var item in result)
